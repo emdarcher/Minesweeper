@@ -23,6 +23,9 @@ public class Minesweeper extends PApplet {
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
 
+public static final int NUM_ROWS = 20;
+public static final int NUM_COLS = 20;
+
 public void setup ()
 {
     size(400, 400);
@@ -31,7 +34,12 @@ public void setup ()
     // make the manager
     Interactive.make( this );
     
-    
+    buttons = new MSButton[NUM_ROWS][NUM_COLS]; 
+    for(int r=0;r<NUM_ROWS;r++){
+      for(int c=0;c<NUM_COLS;c++){
+        buttons[r][c] = new MSButton(r,c);
+      }
+    }
 
     //declare and initialize buttons
     setBombs();
@@ -70,8 +78,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        // width = 400/NUM_COLS;
-        // height = 400/NUM_ROWS;
+         width = 400/NUM_COLS;
+         height = 400/NUM_ROWS;
         r = rr;
         c = cc; 
         x = c*width;
