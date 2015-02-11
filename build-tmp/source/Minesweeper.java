@@ -70,10 +70,10 @@ public boolean isWon(){
     return false;
 }
 public void displayLosingMessage(){
-    //your code here
+  System.out.print("You Lost!\n\r");
 }
 public void displayWinningMessage(){
-    //your code here
+    System.out.print("You Won!\n\r");
 }
 
 public class MSButton{
@@ -103,9 +103,13 @@ public class MSButton{
     
     public void mousePressed () {
         clicked = true;
+        if(DEBUG_F)System.out.println("clicked: "+clicked);
         int bCnt = countBombs(r,c);
         if(keyPressed){
           marked = !marked; //toggles marked boolean
+          if(DEBUG_F){
+            System.out.println("marked: "+marked);
+          }
         } else if(bombs.contains(this)){
           displayLosingMessage();
         } else if(bCnt > 0){
@@ -113,7 +117,15 @@ public class MSButton{
         } else {
           //recursively call mousePressed() on neighbor buttons
           //which are unclicked and valid.
-
+          for(int R=(r-1);R<3;R++){
+            for(int C=(c-1);C<3;C++){
+              if((R!=r)&&(C!=c)){
+                if(isValid(R,C)&&(!buttons[R][C].isClicked())){
+                  buttons[R][C].mousePressed();
+                }
+              }
+            }
+          }
         }
     }
 
