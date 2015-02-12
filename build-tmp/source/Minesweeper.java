@@ -70,7 +70,7 @@ public boolean isWon(){
     return false;
 }
 public void displayLosingMessage(){
-  System.out.print("You Lost!\n\r");
+    System.out.print("You Lost!\n\r");
 }
 public void displayWinningMessage(){
     System.out.print("You Won!\n\r");
@@ -115,6 +115,7 @@ public class MSButton{
         } else if(bCnt > 0){
           label = Integer.toString(bCnt);
         } else {
+          if(DEBUG_F)System.out.println("now starting recursive mousePressed() call!");
           //recursively call mousePressed() on neighbor buttons
           //which are unclicked and valid.
           for(int R=(r-1);R<3;R++){
@@ -131,15 +132,22 @@ public class MSButton{
 
     public void draw () {    
         if (marked){
-            fill(0);}
+            fill(0);
+            if(DEBUG_F)System.out.println("marked!");
+        }
         else if( clicked && bombs.contains(this) ){ 
-            fill(255,0,0);}
+            fill(255,0,0);
+            if(DEBUG_F)System.out.println("clicked and bombs contains this!");
+        }
         else if(clicked){
-            fill( 200 );}
+            fill( 200 );
+            if(DEBUG_F)System.out.println("clicked!");
+        }
         else {
             fill( 100 );}
 
         rect(x, y, B_width, B_height);
+        //if(DEBUG_F)System.out.println("draw: rect ("+x+","+y+")");
         fill(0);
         text(label,x+B_width/2,y+B_height/2);
     }
@@ -150,8 +158,9 @@ public class MSButton{
         //your code here
         if((r<NUM_ROWS)&&(c<NUM_COLS)){
           return true;
-        }
-        return false;
+        } else {
+          if(DEBUG_F)System.out.println("r="+r+"\tc="+c+"\tis invalid!");
+          return false;}
     }
     public int countBombs(int row, int col){
         int numBombs = 0;
