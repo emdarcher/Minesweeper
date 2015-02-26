@@ -84,6 +84,7 @@ public class MSButton{
     // called by manager
     
     public void mousePressed () {
+        if(DEBUG_F)System.out.println("mousePressed() called");
         clicked = true;
         if(DEBUG_F)System.out.println("clicked: "+clicked);
         int bCnt = countBombs(r,c);
@@ -95,6 +96,7 @@ public class MSButton{
         } else if(bombs.contains(this)){
           displayLosingMessage();
         } else if(bCnt > 0){
+          if(DEBUG_F)System.out.println("integer toString thing");
           label = Integer.toString(bCnt);
         } else {
           if(DEBUG_F)System.out.println("now starting recursive mousePressed() call!");
@@ -103,8 +105,9 @@ public class MSButton{
           for(int R=(r-1);R<3;R++){
             for(int C=(c-1);C<3;C++){
               if((R!=r)&&(C!=c)){
-                if(isValid(R,C)&&(!buttons[R][C].isClicked())){
-                  buttons[R][C].mousePressed();
+                if(isValid(R,C)){
+                  if(!(buttons[R][C].isClicked())){
+                    buttons[R][C].mousePressed();}
                 }
               }
             }
@@ -113,20 +116,19 @@ public class MSButton{
     }
 
     public void draw () {    
-        if (marked){
+        if(marked){
             fill(0);
             if(DEBUG_F)System.out.println("marked!");
-        }
-        else if( clicked && bombs.contains(this) ){ 
+        } else if( clicked && bombs.contains(this) ){ 
             fill(255,0,0);
             if(DEBUG_F)System.out.println("clicked and bombs contains this!");
-        }
-        else if(clicked){
+        } else if(clicked){
             fill( 200 );
             if(DEBUG_F)System.out.println("clicked!");
+        } else {
+            //if(DEBUG_F)System.out.println("the else thing");
+            fill( 100 );
         }
-        else {
-            fill( 100 );}
 
         rect(x, y, B_width, B_height);
         //if(DEBUG_F)System.out.println("draw: rect ("+x+","+y+")");
@@ -138,14 +140,17 @@ public class MSButton{
     }
     public boolean isValid(int r, int c){
         //your code here
-        if((r<NUM_ROWS)&&(c<NUM_COLS)){
+        if((r<NUM_ROWS)&&(c<NUM_COLS)&&(r>=0)&&(c>=0)){
+          if(DEBUG_F)System.out.println("r="+r+"\tc="+c+"\tis valid!");
           return true;
         } else {
           if(DEBUG_F)System.out.println("r="+r+"\tc="+c+"\tis invalid!");
-          return false;}
+          return false;
+        }
     }
     public int countBombs(int row, int col){
         int numBombs = 0;
+        if(DEBUG_F)System.out.println("countBombs is called");
         //loops through the neighbor buttons checking
         //for bombs and incrementing the count as it finds them.
         for(int R=(row-1);R<3;R++){
