@@ -1,5 +1,4 @@
 
-
 import de.bezier.guido.*;
 //Declare and initialize NUM_ROWS and NUM_COLS = 20
 private MSButton[][] buttons; //2d array of minesweeper buttons
@@ -10,7 +9,6 @@ public static final int NUM_COLS = 20;
 
 private static final boolean DEBUG_F = true; 
 
-
 void setup (){
     size(400, 400);
     textAlign(CENTER,CENTER);
@@ -18,6 +16,7 @@ void setup (){
     // make the manager
     Interactive.make( this );
     
+    //declare and initialize buttons
     buttons = new MSButton[NUM_ROWS][NUM_COLS]; 
     for(int r=0;r<NUM_ROWS;r++){
       for(int c=0;c<NUM_COLS;c++){
@@ -26,12 +25,9 @@ void setup (){
     }
 
     bombs = new ArrayList <MSButton>();
-
-    //declare and initialize buttons
     setBombs();
 }
 public void setBombs(){
-    //your code
     int row = (int)(Math.random()*NUM_ROWS);
     int col = (int)(Math.random()*NUM_COLS);
     
@@ -45,10 +41,10 @@ public void setBombs(){
 public void draw (){
     background( 0 );
     if(isWon()){
-        displayWinningMessage();}
+      displayWinningMessage();
+    }
 }
 public boolean isWon(){
-    //your code here
     return false;
 }
 public void displayLosingMessage(){
@@ -82,7 +78,6 @@ public class MSButton{
         return clicked;
     }
     // called by manager
-    
     public void mousePressed () {
         if(DEBUG_F)System.out.println("mousePressed() called");
         clicked = true;
@@ -139,7 +134,6 @@ public class MSButton{
         label = newLabel;
     }
     public boolean isValid(int r, int c){
-        //your code here
         if((r<NUM_ROWS)&&(c<NUM_COLS)&&(r>=0)&&(c>=0)){
           if(DEBUG_F)System.out.println("r="+r+"\tc="+c+"\tis valid!");
           return true;
