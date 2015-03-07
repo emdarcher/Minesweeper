@@ -34,7 +34,8 @@ public void setBombs(){
     if(!bombs.contains(buttons[row][col])){
       bombs.add(buttons[row][col]); 
       if(DEBUG_F){
-        System.out.println("adding bomb in rol:\t"+row+"\tcol:\t"+col);}
+        System.out.println("adding bomb in rol:\t"+row+"\tcol:\t"+col);
+      }
     }
 }
 
